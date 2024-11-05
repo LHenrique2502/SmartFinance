@@ -1,7 +1,7 @@
 import { Button } from "./_components/ui/button";
 
-const Home = () => {
+const TransactionPage = () => {
   return <Button>Click me</Button>;
 };
 
-export default Home;
+export default TransactionPage;
