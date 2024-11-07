@@ -44,12 +44,19 @@ import {
 } from "../_constants/transactions";
 import { DatePicker } from "./ui/date-picker";
 import { addTransaction } from "../_actions/add-transaction";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {
     message: "Nome é obrigatório",
   }),
-  amount: z.number(),
+  amount: z
+    .number({
+      required_error: "Valor é obrigatório",
+    })
+    .positive({
+      message: "Valor é obrigatório",
+    }),
   type: z.nativeEnum(TransactionType, {
     required_error: "Tipo é obrigatório",
   }),
@@ -67,11 +74,12 @@ const formSchema = z.object({
 type formSchema = z.infer<typeof formSchema>;
 
 const AddTransactionButton = () => {
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      amount: 0,
+      amount: 50,
       type: TransactionType.EXPENSE,
       category: TransactionCategory.OTHER,
       paymentMethod: TransactionPaymentMethod.CASH,
@@ -82,6 +90,8 @@ const AddTransactionButton = () => {
   const onSubmit = async (data: formSchema) => {
     try {
       await addTransaction(data);
+      setDialogIsOpen(false);
+      form.reset();
     } catch (error) {
       console.error(error);
     }
@@ -89,7 +99,9 @@ const AddTransactionButton = () => {
 
   return (
     <Dialog
+      open={dialogIsOpen}
       onOpenChange={(open) => {
+        setDialogIsOpen(open);
         if (!open) {
           form.reset();
         }
@@ -133,7 +145,9 @@ const AddTransactionButton = () => {
                     <MoneyInput
                       placeholder="Digite o valor..."
                       value={field.value}
-                      onValueChange={(floatValue) => field.onChange(floatValue)}
+                      onValueChange={({ floatValue }) =>
+                        field.onChange(floatValue)
+                      }
                       onBlur={field.onBlur}
                       disabled={field.disabled}
                     />
