@@ -40,8 +40,19 @@ const TransactionPieChart = ({
   depositsTotal,
   investmentsTotal,
   expensesTotal,
-  typesPercentage,
+  // typesPercentage,
 }: TransactionPieChartProps) => {
+  const totalAmount = depositsTotal + investmentsTotal + expensesTotal;
+
+  const calculatedTypesPercentage = {
+    [TransactionType.DEPOSIT]:
+      totalAmount > 0 ? (depositsTotal / totalAmount) * 100 : 0,
+    [TransactionType.EXPENSE]:
+      totalAmount > 0 ? (expensesTotal / totalAmount) * 100 : 0,
+    [TransactionType.INVESTMENT]:
+      totalAmount > 0 ? (investmentsTotal / totalAmount) * 100 : 0,
+  };
+
   const chartData = [
     {
       type: TransactionType.DEPOSIT,
@@ -83,17 +94,23 @@ const TransactionPieChart = ({
           <PercentageItem
             icon={<TrendingUpIcon size={16} className="text-primary" />}
             title="Receita"
-            value={typesPercentage[TransactionType.DEPOSIT]}
+            value={Math.round(
+              calculatedTypesPercentage[TransactionType.DEPOSIT],
+            )}
           />
           <PercentageItem
             icon={<TrendingDownIcon size={16} className="text-danger" />}
             title="Despesa"
-            value={typesPercentage[TransactionType.EXPENSE]}
+            value={Math.round(
+              calculatedTypesPercentage[TransactionType.EXPENSE],
+            )}
           />
           <PercentageItem
             icon={<PiggyBank size={16} />}
             title="Investimento"
-            value={typesPercentage[TransactionType.INVESTMENT]}
+            value={Math.round(
+              calculatedTypesPercentage[TransactionType.INVESTMENT],
+            )}
           />
         </div>
       </CardContent>
