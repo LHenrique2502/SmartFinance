@@ -23,15 +23,15 @@ export const POST = async (request: Request) => {
     process.env.STRIPE_WEBHOOK_SECRET,
   );
   switch (event.type) {
-    case "invoice.paid":
+    case "invoice.paid": {
       // Atualizar o usuário com o seu plano
       const { customer, subscription, subscription_details } =
         event.data.object;
-      const clerkUserId = subscription_details?.metadata?.clerkUserId;
+      const clerkUserId = subscription_details?.metadata?.clerk_user_id;
       if (!clerkUserId) {
         return NextResponse.error();
       }
-      await clerkClient().users.updateUser(clerkUserId, {
+      (await clerkClient()).users.updateUser(clerkUserId, {
         privateMetadata: {
           stripeCustomerId: customer,
           stripeSubscriptionId: subscription,
@@ -41,6 +41,26 @@ export const POST = async (request: Request) => {
         },
       });
       break;
+    }
+    case "customer.subscription.deleted": {
+      // Remover plano premium do usuário
+      const subscription = await stripe.subscriptions.retrieve(
+        event.data.object.id,
+      );
+      const clarkUserId = subscription.metadata.clerk_user_id;
+      if (!clarkUserId) {
+        return NextResponse.error();
+      }
+      await clerkClient().users.updateUser(clarkUserId, {
+        privateMetadata: {
+          stripeCustomerId: null,
+          stripeSubscriptionId: null,
+        },
+        publicMetadata: {
+          subscriptionPlan: null,
+        },
+      });
+    }
   }
   return NextResponse.json({ received: true });
 };
