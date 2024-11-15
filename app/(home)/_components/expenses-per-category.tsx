@@ -22,7 +22,13 @@ const ExpensesPerCategory = ({
           <div key={category.category} className="space-y-2">
             <div className="flex w-full justify-between">
               <p className="tet-sm font-bold">
-                {TRANSACTION_CATEGORY_LABELS[category.category]}
+                {/* FIXME: alterei utilizando o Git IA, ficar de olho aqui, anteriormente assim
+              {TRANSACTION_CATEGORY_LABELS[category.category as keyof typeof TRANSACTION_CATEGORY_LABELS]} */}
+                {
+                  TRANSACTION_CATEGORY_LABELS[
+                    category.category as keyof typeof TRANSACTION_CATEGORY_LABELS
+                  ]
+                }
               </p>
               <p className="text-sm font-bold">{category.percentageOfTotal}%</p>
             </div>

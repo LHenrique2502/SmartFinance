@@ -14,7 +14,9 @@ export const TRANSACTION_PAYMENT_METHOD_ICONS = {
   [TransactionPaymentMethod.OTHER]: "other.svg",
 };
 
-export const TRANSACTION_CATEGORY_LABELS = {
+export const TRANSACTION_CATEGORY_LABELS: {
+  [key in TransactionCategory]: string;
+} = {
   EDUCATION: "Educação",
   ENTERTAINMENT: "Entretenimento",
   FOOD: "Alimentação",
@@ -23,7 +25,9 @@ export const TRANSACTION_CATEGORY_LABELS = {
   OTHER: "Outros",
   SALARY: "Salário",
   TRANSPORTATION: "Transporte",
-  UTILITY: "Utilidades",
+  // FIXME: alterei utilizando o Git Copilot, ficar de olho aqui, anteriormente assim
+  // UTILITY: "Utilidades",
+  UTILITIES: "Utilidades",
 };
 
 export const TRANSACTION_PAYMENT_METHOD_LABELS = {
@@ -111,7 +115,11 @@ export const TRANSACTION_CATEGORY_OPTIONS = [
     label: TRANSACTION_CATEGORY_LABELS[TransactionCategory.TRANSPORTATION],
   },
   {
-    value: TransactionCategory.UTILITY,
-    label: TRANSACTION_CATEGORY_LABELS[TransactionCategory.UTILITY],
+    // FIXME: alterei utilizando o Git Copilot, ficar de olho aqui, anteriormente assim
+    //           value: TransactionCategory.UTILITY,
+    // label: TRANSACTION_CATEGORY_LABELS[TransactionCategory.UTILITY],
+
+    value: TransactionCategory.UTILITIES,
+    label: TRANSACTION_CATEGORY_LABELS[TransactionCategory.UTILITIES],
   },
 ];
