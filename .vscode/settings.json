@@ -1,0 +1,43 @@
+{
+  "todo-tree.regex": "(//|#|<!--|;)\\s*(TODO|FIXME|HACK|NOTE)",
+  "todo-tree.tree.showScanModeButton": true,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "type": "text",
+    "background": "#FFEB3B",
+    "foreground": "#000000",
+    "icon": "alert",
+    "iconColour": "#FFEB3B"
+  },
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "check",
+      "background": "#2196F3",
+      "foreground": "#FFFFFF",
+      "iconColour": "#2196F3"
+    },
+    "FIXME": {
+      "icon": "bug",
+      "background": "#F44336",
+      "foreground": "#FFFFFF",
+      "iconColour": "#F44336"
+    },
+    "HACK": {
+      "icon": "flame",
+      "background": "#FF9800",
+      "foreground": "#FFFFFF",
+      "iconColour": "#FF9800"
+    }
+  },
+  "todo-tree.regex.regex": "(//|#|<!--|;)\\s*(TODO|FIXME|HACK|NOTE)",
+  "todo-tree.tree.scanMode": "workspace",
+  "todo-tree.autoRefresh": true,
+  "todo-tree.showInExplorer": true,
+  "todo-tree.highlights.enabled": true,
+  "todo-tree.tree.autoRefresh": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "foreground": "#FFEB3B",
+    "icon": "alert",
+    "iconColour": "#FFEB3B"
+  }
+}
